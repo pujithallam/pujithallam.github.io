@@ -1,0 +1,229 @@
+/* body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background: #f9f9f9;
+    color: #333;
+  }
+  header, section {
+    padding: 20px;
+    margin: auto;
+    max-width: 900px;
+  }
+  header {
+    text-align: center;
+    background: #eee;
+    padding: 40px 20px;
+  }
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+  h2 {
+    margin-top: 2rem;
+    color: #0056b3;
+  }
+  .links a {
+    margin: 0 10px;
+    color: #0056b3;
+    text-decoration: none;
+  }
+  .card {
+    background: #fff;
+    padding: 15px;
+    margin: 10px 0;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    border-radius: 5px;
+  }
+  ul {
+    padding-left: 20px;
+  }
+  .center {
+    text-align: center;
+    margin-top: 30px;
+  }
+  .button {
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    text-decoration: none;
+  } */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+
+/* body{
+    background-color: #88bdbc;
+} */
+
+/* red = #e85a4f */
+/* text color = #252423 */
+/* tedxt colo2 = #8e8d8a */
+
+body{
+    background-color: #eae7dc;
+}
+
+.name-conatiner {
+    display: inline-block;
+}
+
+
+header{
+    display: flex;
+    align-items: center;
+}
+
+.carousel-container{
+    width: 40%;
+    height: 10rem;
+}
+
+.name-conatiner{
+    width: 100%;
+}
+
+.intro-container{
+    text-align: center;
+}
+
+.profile-name{
+    margin: auto;
+    width: 100%;
+    font-size: 3rem;
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    border-right: 0.3rem solid;
+    font-weight: 500;
+
+    color: #252423;
+
+    white-space: nowrap;
+    overflow: hidden;
+    animation: 
+        typing 2s steps(23),
+        cursor .4s step-end infinite alternate;
+}
+
+#about-me{
+    max-width: 60%;
+    margin: auto;
+    font-family: "Roboto", sans-serif;
+}
+
+.content{
+    width: 80%;
+    margin: auto;
+}
+
+@keyframes cursor{
+    50% { border-color: transparent }
+}
+
+@keyframes typing {
+    from { width: 0 }
+}
+
+.section-container{
+    padding: 2rem 0;
+}
+
+.section-heading{
+    font-family: "Roboto", sans-serif;
+    border-left: 0.3rem solid #e85a4f;
+    font-size: 2rem;
+    font-weight: 600;
+    padding: 0.5rem ;
+}
+
+.section-content{
+    padding: 1rem 1rem;
+    font-family: "Roboto", sans-serif;
+}
+
+.project-content{
+    display: grid,
+
+}
+
+.card{
+    width: 30%;
+    background-color: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.card-content{
+    padding: 1rem;
+}
+
+.card-heading{
+    color:#252423;
+    font-weight: 800;
+    font-size: 1.2rem;
+}
+
+.card-heading:hover{
+    color:#e85a4f;
+    /* text-decoration: underline;
+    text-underline-offset: 0.3rem; */
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.card-description{
+    padding-top: 1rem;
+}
+
+#right-scroll-button{
+    transform: rotate(180deg);
+}
+
+#project-slider{
+    display: flex;
+    align-items: center;
+}
+
+.scroll-button{
+    padding: 1rem;
+}
+
+#project-content{
+    display: grid;
+    grid-column: 3;
+}
+
+#techskill-container{
+    display: flex;
+}
+
+.technical-skill{
+    border: 0.1rem solid #e85a4f;
+    background-color: whitesmoke;
+    max-width: fit-content;
+    padding: 0.3rem 0.5rem;
+    border-radius: 1rem;
+    margin: 0.3rem;
+
+    font-weight: 500;
+}
+
+.experience-wrapper{
+    display: flex;
+}
+
+.date{
+    font-size: 1rem;
+    font-style: italic;
+    font-weight: 600;
+}
+
