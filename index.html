@@ -1,180 +1,377 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="project-page-title">Project Details</title>
+    <title>Pujith Sai Eswar Allam - Mechanical Engineering Portfolio</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts - Inter for clean typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Poppins for headings, Inter for body text -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8f8f8; /* Light background */
-            color: #333; /* Dark text for contrast */
+            background-color: #F9F9F9; /* Very light off-white */
+            color: #1D1D1F; /* Near black for primary text */
             line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll due to animations */
         }
-        .container {
-            max-width: 1024px; /* Limit content width */
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: -0.01em; /* Subtle tighter spacing for headings */
         }
-        .section-header {
-            font-weight: 700;
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 2rem;
-            position: relative;
-            padding-bottom: 10px;
+
+        /* Accent Color */
+        .accent-color { color: #4F46E5; } /* Indigo 600 */
+        .bg-accent-color { background-color: #4F46E5; }
+        .hover\:bg-accent-dark { background-color: #4338CA; } /* Indigo 700 */
+        .border-accent-color { border-color: #4F46E5; }
+
+        /* Custom scrollbar - subtle */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        .section-header::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background-color: #2563eb;
-            border-radius: 2px;
+        ::-webkit-scrollbar-track {
+            background: #E5E7EB;
+            border-radius: 4px;
         }
-        .pdf-viewer-container {
-            width: 100%;
-            height: 80vh; /* Adjust height as needed for PDF viewer */
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            overflow: hidden; /* Hide scrollbars if PDF is larger than iframe */
+        ::-webkit-scrollbar-thumb {
+            background: #9CA3AF; /* Light gray */
+            border-radius: 4px;
         }
-        .pdf-viewer-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6B7280; /* Darker gray on hover */
         }
-        /* Loading spinner styles */
-        .loading-spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-top: 4px solid #2563eb;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
+
+        .section-separator {
+            width: 80px;
+            height: 2px;
+            background-color: #D1D5DB; /* Light gray line */
+            margin: 0 auto 6rem auto;
+            border-radius: 1px;
+            opacity: 0.7;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+
+        /* --- Keyframe Animations (Subtle) --- */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUpMinimal {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scaleUpSubtle {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes headerFadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Initial hidden state */
+        .animated-element { opacity: 0; }
+
+        /* Animation classes for JS to apply */
+        .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
+        .animate-slide-up-minimal { animation: slideUpMinimal 0.8s ease-out forwards; }
+        .animate-scale-up-subtle { animation: scaleUpSubtle 0.7s ease-out forwards; }
+        .animate-header-fade-in { animation: headerFadeIn 0.6s ease-out forwards; }
+
+        /* Card Hover Effect */
+        .card-hover:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Slightly stronger shadow */
+            transform: translateY(-4px); /* Subtle lift */
         }
     </style>
 </head>
-<body class="antialiased bg-gray-50">
-
-    <!-- Navigation Bar (Simple version for project page) -->
-    <nav class="bg-white shadow-md p-4 sticky top-0 z-50">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="index.html" class="text-3xl font-extrabold text-gray-800 tracking-tight">Pujith Sai Eswar Allam</a>
-            <a href="index.html" class="text-blue-600 hover:text-blue-800 transition duration-300 flex items-center">
-                <svg class="w-5 h-5 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-                Back to Portfolio
-            </a>
+<body class="antialiased">
+    <!-- Header/Navigation Bar -->
+    <header class="bg-white text-gray-800 shadow-sm p-5 sticky top-0 z-50 rounded-b-xl border-b border-gray-100">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center px-6">
+            <h1 class="text-3xl font-extrabold text-gray-800 animate-header-fade-in" style="animation-delay: 0.1s;">Pujith Sai Eswar Allam</h1>
+            <nav class="animate-header-fade-in" style="animation-delay: 0.3s;">
+                <ul class="flex flex-wrap justify-center gap-6 text-lg font-medium">
+                    <li><a href="#about" class="hover:text-accent-color transition duration-200 relative group py-2">About <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent-color group-hover:w-full transition-all duration-200"></span></a></li>
+                    <li><a href="#skills" class="hover:text-accent-color transition duration-200 relative group py-2">Skills <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent-color group-hover:w-full transition-all duration-200"></span></a></li>
+                    <li><a href="#projects" class="hover:text-accent-color transition duration-200 relative group py-2">Projects <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent-color group-hover:w-full transition-all duration-200"></span></a></li>
+                    <li><a href="#experience" class="hover:text-accent-color transition duration-200 relative group py-2">Experience <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent-color group-hover:w-full transition-all duration-200"></span></a></li>
+                    <li><a href="#certifications" class="hover:text-accent-color transition duration-200 relative group py-2">Certifications <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent-color group-hover:w-full transition-all duration-200"></span></a></li>
+                    <li><a href="#contact" class="hover:text-accent-color transition duration-200 relative group py-2">Contact <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent-color group-hover:w-full transition-all duration-200"></span></a></li>
+                </ul>
+            </nav>
         </div>
-    </nav>
+    </header>
 
-    <main class="container mx-auto px-4 py-12 md:py-16">
-        <section class="bg-white p-8 rounded-lg shadow-lg mb-8">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 text-center" id="project-title"></h1>
-            <p class="text-lg text-gray-700 mb-6 text-center" id="project-time"></p>
-
-            <div class="mb-8 flex flex-wrap gap-2 justify-center" id="project-skills">
-                <!-- Skills labels will be inserted here by JavaScript -->
+    <main class="container mx-auto p-8 space-y-28">
+        <!-- Hero/About Me Section -->
+        <section id="about" class="bg-white p-16 rounded-2xl shadow-lg flex flex-col md:flex-row items-center gap-12 animated-element animate-slide-up-minimal">
+            <div class="md:w-1/3 flex justify-center animated-element animate-scale-up-subtle" style="animation-delay: 0.2s;">
+                <!-- Placeholder for your professional headshot -->
+                <img src="https://placehold.co/320x320/E2E8F0/4F46E5?text=Pujith+Profile" alt="Pujith Sai Eswar Allam" class="rounded-full border-4 border-gray-200 shadow-md w-80 h-80 object-cover ring-4 ring-gray-100 ring-opacity-50">
             </div>
-
-            <img id="project-image" src="" alt="Project Image" class="w-full h-auto rounded-lg shadow-md mb-8 object-cover max-h-[400px]">
-
-            <div class="text-base text-gray-800 mb-8 leading-relaxed" id="project-description">
-                <!-- Project description will be inserted here by JavaScript -->
+            <div class="md:w-2/3 text-center md:text-left animated-element animate-slide-up-minimal" style="animation-delay: 0.4s;">
+                <h2 class="text-6xl font-extrabold text-gray-900 mb-6 leading-tight">
+                    Innovative <span class="accent-color">Mechanical Engineer</span> driving efficiency
+                </h2>
+                <p class="text-lg leading-relaxed text-gray-700 mb-6">
+                    A passionate Mechanical Engineering graduate specialized in optimizing production workflows, CAD modeling, and industrial safety. I thrive on leveraging advanced tools like ANSYS, SolidWorks, and MATLAB to drive efficiency and innovation.
+                </p>
+                <p class="text-lg leading-relaxed text-gray-700 mt-4">
+                    My expertise lies in product design, rapid prototyping, and solving complex mechanical challenges, consistently enhancing performance in dynamic manufacturing environments.
+                </p>
+                <div class="mt-12 flex flex-wrap justify-center md:justify-start gap-5">
+                    <a href="https://www.linkedin.com/in/pujithallam" target="_blank" class="bg-accent-color hover:bg-accent-dark text-white font-bold py-3 px-8 rounded-full shadow-md transition duration-200 transform hover:-translate-y-0.5 flex items-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.564c0-1.33 0-3.197-1.944-3.197-1.945 0-2.24 1.517-2.24 3.109v5.652H9.006V9h3.418v1.561h.046c.477-.9 1.637-1.944 3.37-1.944 3.606 0 4.267 2.373 4.267 5.464v6.27h-3.554zM5.337 7.433a2.001 2.001 0 01-2.001-2.001 2.001 2.001 0 012.001-2.001 2.001 2.001 0 012.001 2.001 2.001 2.001 0 01-2.001 2.001zm1.751 13.019H3.586V9h3.502v11.452zM22.227 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.455C23.208 24 24 23.227 24 22.271V1.729C24 .774 23.208 0 22.227 0z"/></svg>
+                        LinkedIn Profile
+                    </a>
+                    <a href="mailto:pujithallam@gmail.com" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-8 rounded-full shadow-md transition duration-200 transform hover:-translate-y-0.5 flex items-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        Email Me
+                    </a>
+                </div>
             </div>
+        </section>
 
-            <h2 class="text-3xl font-bold text-gray-800 section-header mb-6">Project Report</h2>
-            <div class="pdf-viewer-container">
-                <div class="loading-spinner" id="pdf-loading-spinner"></div>
-                <iframe id="project-report-pdf" src="" type="application/pdf" width="100%" height="100%" loading="lazy">
-                    <p class="text-red-500 text-center p-4">Your browser does not support PDFs. You can <a id="pdf-download-link" href="#" class="text-blue-600 hover:underline" download>download the PDF here</a> instead.</p>
-                </iframe>
+        <!-- Skills Section -->
+        <section id="skills" class="bg-white p-16 rounded-2xl shadow-lg border-t-4 border-gray-100 animated-element animate-slide-up-minimal">
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-10 text-center animated-element animate-fade-in" style="animation-delay: 0.2s;">My Technical Expertise</h2>
+            <div class="section-separator animated-element animate-fade-in" style="animation-delay: 0.4s;"></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Design and Modeling Tools -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-sm border border-gray-200 hover:shadow-md card-hover transition duration-200 animated-element animate-scale-up-subtle" style="animation-delay: 0.5s;">
+                    <h3 class="text-2xl font-bold accent-color mb-4 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-3 accent-color" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg> Design & Modeling</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 text-lg">
+                        <li>AutoCAD</li>
+                        <li>SolidWorks</li>
+                        <li>Fusion360</li>
+                        <li>Tinkercad (Circuit Simulation)</li>
+                    </ul>
+                </div>
+                <!-- Programming Languages -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-sm border border-gray-200 hover:shadow-md card-hover transition duration-200 animated-element animate-scale-up-subtle" style="animation-delay: 0.7s;">
+                    <h3 class="text-2xl font-bold text-green-700 mb-4 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-3 text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg> Programming Languages</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 text-lg">
+                        <li>Basic Python</li>
+                        <li>MATLAB</li>
+                        <li>Arduino</li>
+                    </ul>
+                </div>
+                <!-- Analysis Tools -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-sm border border-gray-200 hover:shadow-md card-hover transition duration-200 animated-element animate-scale-up-subtle" style="animation-delay: 0.9s;">
+                    <h3 class="text-2xl font-bold text-blue-700 mb-4 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-3 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6a2 2 0 00-2-2H5a2 2 0 00-2 2v13a2 2 0 002 2h4a2 2 0 002-2zm0 0h.01M12 16h.01M16 16h.01M18 16h.01M21 16h.01" /></svg> Analysis Tools</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 text-lg">
+                        <li>ANSYS (Fluent, Structural, Thermal)</li>
+                        <li>Ls Dyna</li>
+                        <li>COMSOL (Multiphysics, Thermal, Structural, CFD)</li>
+                    </ul>
+                </div>
+                <!-- Data Handling -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-sm border border-gray-200 hover:shadow-md card-hover transition duration-200 animated-element animate-scale-up-subtle" style="animation-delay: 1.1s;">
+                    <h3 class="text-2xl font-bold text-yellow-700 mb-4 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-3 text-yellow-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg> Data Handling</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 text-lg">
+                        <li>Microsoft Excel</li>
+                        <li>Microsoft Word</li>
+                        <li>Microsoft PowerPoint</li>
+                        <li>Microsoft Outlook</li>
+                    </ul>
+                </div>
+                <!-- Core Technical Skills (Combined for brevity and clarity) -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-sm border border-gray-200 hover:shadow-md card-hover transition duration-200 animated-element animate-scale-up-subtle" style="animation-delay: 1.3s;">
+                    <h3 class="text-2xl font-bold text-red-700 mb-4 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-3 text-red-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 002.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg> Technical Skills</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 text-lg">
+                        <li>Lean Manufacturing, FEA, CFD, GD&T, Root Cause Analysis</li>
+                        <li>Semiconductor Manufacturing Processes, SPC</li>
+                        <li>Mechanical Design, Testing & Validation</li>
+                        <li>Closed-Loop Control Systems, Mechanical Assembly</li>
+                        <li>Tensile & Fatigue Testing, Force Calibration</li>
+                    </ul>
+                </div>
+                <!-- Soft Skills -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-sm border border-gray-200 hover:shadow-md card-hover transition duration-200 animated-element animate-scale-up-subtle" style="animation-delay: 1.5s;">
+                    <h3 class="text-2xl font-bold text-purple-700 mb-4 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-3 text-purple-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h2a2 2 0 002-2V8a2 2 0 00-2-2h-2M11 20h2a2 2 0 002-2V8a2 2 0 00-2-2h-2m-8 4l3 3m0 0l3-3m-3 3v6m-3-6h6"/></svg> Soft Skills</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 text-lg">
+                        <li>Project Management, Interpersonal Skills</li>
+                        <li>Strong Communication, Problem Solving</li>
+                        <li>Teamwork, Technical Leadership, Task Delegation</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="bg-white p-16 rounded-2xl shadow-lg border-t-4 border-gray-100 animated-element animate-slide-up-minimal">
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-10 text-center animated-element animate-fade-in" style="animation-delay: 0.2s;">My Innovation Portfolio</h2>
+            <div class="section-separator animated-element animate-fade-in" style="animation-delay: 0.4s;"></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-10">
+                <!-- Project 1: Advanced CFD Simulation -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-sm border border-gray-200 flex flex-col hover:shadow-md card-hover transition duration-200 animated-element animate-scale-up-subtle" style="animation-delay: 0.5s;">
+                    <h3 class="text-3xl font-bold text-gray-900 mb-3 leading-snug">Advanced CFD Simulation and Analysis of Complex Geometries</h3>
+                    <p class="text-md text-gray-600 mb-5">November 2024</p>
+                    <p class="text-lg text-gray-700 flex-grow">Designed and modeled geometries in SolidWorks for CFD simulations in ANSYS Fluent, analyzing thermal convection under Earth and Mars gravity with optimized mesh and transient settings...</p>
+                    <div class="mt-8 text-right">
+                        <a href="./project1.html" class="inline-block bg-accent-color hover:bg-accent-dark text-white font-semibold py-3 px-8 rounded-full shadow-md transition duration-200 transform hover:scale-105">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 2: Design and Development of Tensile Testing Machine -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-sm border border-gray-200 flex flex-col hover:shadow-md card-hover transition duration-200 animated-element animate-scale-up-subtle" style="animation-delay: 0.7s;">
+                    <h3 class="text-3xl font-bold text-gray-900 mb-3 leading-snug">Design and Development of Tensile Testing Machine</h3>
+                    <p class="text-md text-gray-600 mb-5">May 2025</p>
+                    <p class="text-lg text-gray-700 flex-grow">Led the design and mechanical integration of a low-cost tensile testing system using Arduino, load cell, stepper motor, and HX711 amplifier...</p>
+                    <div class="mt-8 text-right">
+                        <a href="./project2.html" class="inline-block bg-accent-color hover:bg-accent-dark text-white font-semibold py-3 px-8 rounded-full shadow-md transition duration-200 transform hover:scale-105">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 3: Plant and Process Layout -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-sm border border-gray-200 flex flex-col hover:shadow-md card-hover transition duration-200 animated-element animate-scale-up-subtle" style="animation-delay: 0.9s;">
+                    <h3 class="text-3xl font-bold text-gray-900 mb-3 leading-snug">Plant and Process Layout for Production Systems (AMPL, AutoCAD)</h3>
+                    <p class="text-md text-gray-600 mb-5">November 2023</p>
+                    <p class="text-lg text-gray-700 flex-grow">Optimized production scheduling using a binary ordering algorithm, improving machine utilization and reducing labor costs...</p>
+                    <div class="mt-8 text-right">
+                        <a href="./project3.html" class="inline-block bg-accent-color hover:bg-accent-dark text-white font-semibold py-3 px-8 rounded-full shadow-md transition duration-200 transform hover:scale-105">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 4: Thermal and Structural Analysis of Additive Manufacturing -->
+                <div class="bg-gray-50 p-8 rounded-xl shadow-sm border border-gray-200 flex flex-col hover:shadow-md card-hover transition duration-200 animated-element animate-scale-up-subtle" style="animation-delay: 1.1s;">
+                    <h3 class="text-3xl font-bold text-gray-900 mb-3 leading-snug">Thermal and Structural Analysis of Additive Manufacturing Processes using ANSYS</h3>
+                    <p class="text-md text-gray-600 mb-5">April 2024</p>
+                    <p class="text-lg text-gray-700 flex-grow">Optimized 3D-printed polymer quality by performing thermal analysis of FDM in ANSYS, refining nozzle temperatures, print speed, and material properties...</p>
+                    <div class="mt-8 text-right">
+                        <a href="./project4.html" class="inline-block bg-accent-color hover:bg-accent-dark text-white font-semibold py-3 px-8 rounded-full shadow-md transition duration-200 transform hover:scale-105">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="bg-white p-16 rounded-2xl shadow-lg border-t-4 border-gray-100 animated-element animate-slide-up-minimal">
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-10 text-center animated-element animate-fade-in" style="animation-delay: 0.2s;">Professional Trajectory</h2>
+            <div class="section-separator animated-element animate-fade-in" style="animation-delay: 0.4s;"></div>
+            <div class="bg-gray-50 p-8 rounded-xl shadow-sm border border-gray-200 hover:shadow-md card-hover transition duration-200 animated-element animate-slide-up-minimal" style="animation-delay: 0.6s;">
+                <h3 class="text-3xl font-bold text-gray-900 mb-3">Engineering Intern</h3>
+                <p class="text-xl text-gray-700 mb-2">Synergies Casting Limited, Visakhapatnam, (India)</p>
+                <p class="text-md text-gray-600 mb-5">March 2021 - August 2021</p>
+                <ul class="list-disc list-inside space-y-3 text-lg text-gray-700">
+                    <li>Analyzed and monitored wheel distortion monitoring in the Foundry department, analyzing causes in casting, gate cutting, and heat treatment.</li>
+                    <li>Conducted dimensional analysis to ensure compliance with tolerance limits and improve production quality.</li>
+                    <li>Gained hands-on experience with die casting, NDT (X-ray), and heat treatment for alloy wheel manufacturing.</li>
+                    <li>Suggested process optimizations to reduce distortion and enhance manufacturing efficiency.</li>
+                    <li>Collaborated on data-driven quality improvements, contributing to significant reductions in scrap and rework.</li>
+                    <li>Collaborated with engineers to identify and implement quality control measures for defect reduction.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section id="certifications" class="bg-white p-16 rounded-2xl shadow-lg border-t-4 border-gray-100 animated-element animate-slide-up-minimal">
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-10 text-center animated-element animate-fade-in" style="animation-delay: 0.2s;">Certifications & Milestones</h2>
+            <div class="section-separator animated-element animate-fade-in" style="animation-delay: 0.4s;"></div>
+            <div class="flex flex-wrap justify-center gap-6">
+                <span class="bg-gray-50 text-accent-color text-xl font-medium px-6 py-3 rounded-full shadow-sm border border-gray-200 hover:bg-gray-100 transition-colors transform hover:scale-105 cursor-default animated-element animate-scale-up-subtle" style="animation-delay: 0.5s;">Certified Lean Six Sigma Green Belt</span>
+                <span class="bg-gray-50 text-accent-color text-xl font-medium px-6 py-3 rounded-full shadow-sm border border-gray-200 hover:bg-gray-100 transition-colors transform hover:scale-105 cursor-default animated-element animate-scale-up-subtle" style="animation-delay: 0.7s;">Additive Manufacturing Specialization</span>
+                <span class="bg-gray-50 text-accent-color text-xl font-medium px-6 py-3 rounded-full shadow-sm border border-gray-200 hover:bg-gray-100 transition-colors transform hover:scale-105 cursor-default animated-element animate-scale-up-subtle" style="animation-delay: 0.9s;">The Complete AutoCAD 2018-21 Course</span>
+                <span class="bg-gray-50 text-accent-color text-xl font-medium px-6 py-3 rounded-full shadow-sm border border-gray-200 hover:bg-gray-100 transition-colors transform hover:scale-105 cursor-default animated-element animate-scale-up-subtle" style="animation-delay: 1.1s;">MATLAB Onramp</span>
+                <span class="bg-gray-50 text-accent-color text-xl font-medium px-6 py-3 rounded-full shadow-sm border border-gray-200 hover:bg-gray-100 transition-colors transform hover:scale-105 cursor-default animated-element animate-scale-up-subtle" style="animation-delay: 1.3s;">Semiconductor Fabrication</span>
+                <span class="bg-gray-50 text-accent-color text-xl font-medium px-6 py-3 rounded-full shadow-sm border border-gray-200 hover:bg-gray-100 transition-colors transform hover:scale-105 cursor-default animated-element animate-scale-up-subtle" style="animation-delay: 1.5s;">Supply Chain Management</span>
+                <span class="bg-gray-50 text-accent-color text-xl font-medium px-6 py-3 rounded-full shadow-sm border border-gray-200 hover:bg-gray-100 transition-colors transform hover:scale-105 cursor-default animated-element animate-scale-up-subtle" style="animation-delay: 1.7s;">Introduction to Geometric Dimensioning and Tolerance</span>
+                <span class="bg-gray-50 text-accent-color text-xl font-medium px-6 py-3 rounded-full shadow-sm border border-gray-200 hover:bg-gray-100 transition-colors transform hover:scale-105 cursor-default animated-element animate-scale-up-subtle" style="animation-delay: 1.9s;">International Automotive Industry 4.0 Training</span>
+                <span class="bg-gray-50 text-accent-color text-xl font-medium px-6 py-3 rounded-full shadow-sm border border-gray-200 hover:bg-gray-100 transition-colors transform hover:scale-105 cursor-default animated-element animate-scale-up-subtle" style="animation-delay: 2.1s;">Virtual Assessment Program on Alternate Fuels</span>
+                <span class="bg-gray-50 text-accent-color text-xl font-medium px-6 py-3 rounded-full shadow-sm border border-gray-200 hover:bg-gray-100 transition-colors transform hover:scale-105 cursor-default animated-element animate-scale-up-subtle" style="animation-delay: 2.3s;">Engineering Project Management</span>
+                <span class="bg-gray-50 text-accent-color text-xl font-medium px-6 py-3 rounded-full shadow-sm border border-gray-200 hover:bg-gray-100 transition-colors transform hover:scale-105 cursor-default animated-element animate-scale-up-subtle" style="animation-delay: 2.5s;">Interpersonal Skills</span>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="bg-white p-16 rounded-2xl shadow-lg text-center border-t-4 border-gray-100 animated-element animate-slide-up-minimal">
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-10 animated-element animate-fade-in" style="animation-delay: 0.2s;">Let's Connect & Collaborate!</h2>
+            <div class="section-separator animated-element animate-fade-in" style="animation-delay: 0.4s;"></div>
+            <p class="text-lg text-gray-700 mb-12 max-w-2xl mx-auto animated-element animate-slide-up-minimal" style="animation-delay: 0.6s;">
+                I'm actively seeking challenging opportunities and eager to discuss how my expertise can drive your projects forward. Feel free to reach out via any of the channels below.
+            </p>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-8">
+                <div class="flex items-center gap-4 bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-200 card-hover transition duration-200 animated-element animate-scale-up-subtle" style="animation-delay: 0.7s;">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 accent-color" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <a href="mailto:pujithallam@gmail.com" class="text-xl font-semibold accent-color hover:underline">pujithallam@gmail.com</a>
+                </div>
+                <div class="flex items-center gap-4 bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-200 card-hover transition duration-200 animated-element animate-scale-up-subtle" style="animation-delay: 0.9s;">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 accent-color" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                    <span class="text-xl font-semibold text-gray-700">(480) 942-4991</span>
+                </div>
+                <div class="flex items-center gap-4 bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-200 card-hover transition duration-200 animated-element animate-scale-up-subtle" style="animation-delay: 1.1s;">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 accent-color" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span class="text-xl font-semibold text-gray-700">Tempe, AZ</span>
+                </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer (Simple version for project page) -->
-    <footer class="bg-gray-900 py-8 text-center text-gray-400 text-sm">
-        <p>&copy; 2025 Pujith Sai Eswar Allam. All rights reserved.</p>
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-6 mt-20 text-center rounded-t-xl shadow-xl border-t border-gray-700">
+        <p class="text-gray-400">&copy; 2025 Pujith Sai Eswar Allam. All rights reserved.</p>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const projectId = parseInt(urlParams.get('id'));
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.animated-element');
 
-            // Retrieve projectsData from localStorage
-            const storedProjectsData = localStorage.getItem('projectsData');
-            const projectsData = storedProjectsData ? JSON.parse(storedProjectsData) : [];
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            };
 
-            const project = projectsData.find(p => p.id === projectId);
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const element = entry.target;
+                        const delay = parseFloat(element.style.animationDelay) || 0;
 
-            if (project) {
-                document.getElementById('project-page-title').textContent = project.title + " - Project Details";
-                document.getElementById('project-title').textContent = project.title;
-                document.getElementById('project-time').textContent = "Completed: " + project.time;
-                document.getElementById('project-image').src = project.imageUrl;
-                document.getElementById('project-image').alt = project.title; // Update alt text
-                document.getElementById('project-description').textContent = project.description;
+                        // Ensure element is initially hidden by JS, then reveal with animation
+                        element.style.opacity = 'initial'; // Reset opacity for animation to take effect
 
-                const skillsContainer = document.getElementById('project-skills');
-                skillsContainer.innerHTML = ''; // Clear existing content
-                project.skills.forEach(skill => {
-                    const span = document.createElement('span');
-                    span.className = 'bg-blue-100 text-blue-700 text-sm px-3 py-1 rounded-full font-medium';
-                    span.textContent = skill;
-                    skillsContainer.appendChild(span);
+                        // Apply animation based on the classes present
+                        if (element.classList.contains('animate-fade-in')) {
+                            element.style.animation = `fadeIn 1s ease-out ${delay}s forwards`;
+                        } else if (element.classList.contains('animate-slide-up-minimal')) {
+                            element.style.animation = `slideUpMinimal 0.8s ease-out ${delay}s forwards`;
+                        } else if (element.classList.contains('animate-scale-up-subtle')) {
+                            element.style.animation = `scaleUpSubtle 0.7s ease-out ${delay}s forwards`;
+                        } else if (element.classList.contains('animate-header-fade-in')) {
+                             element.style.animation = `headerFadeIn 0.6s ease-out ${delay}s forwards`;
+                        }
+                        
+                        observer.unobserve(element); // Stop observing once animated
+                    }
                 });
+            }, observerOptions);
 
-                const pdfViewer = document.getElementById('project-report-pdf');
-                const pdfLoadingSpinner = document.getElementById('pdf-loading-spinner');
-                const pdfDownloadLink = document.getElementById('pdf-download-link');
-
-                if (project.reportPdfUrl) {
-                    // Show spinner while PDF loads
-                    pdfLoadingSpinner.style.display = 'block';
-                    pdfViewer.style.display = 'none'; // Hide iframe until loaded
-                    
-                    pdfViewer.src = project.reportPdfUrl;
-                    pdfDownloadLink.href = project.reportPdfUrl;
-
-                    pdfViewer.onload = function() {
-                        pdfLoadingSpinner.style.display = 'none'; // Hide spinner
-                        pdfViewer.style.display = 'block'; // Show iframe
-                    };
-                    pdfViewer.onerror = function() {
-                        pdfLoadingSpinner.style.display = 'none'; // Hide spinner
-                        console.error("Failed to load PDF from URL:", project.reportPdfUrl);
-                        // Optionally display a user-friendly error message within the iframe area
-                        const errorMessage = document.createElement('p');
-                        errorMessage.className = 'text-red-500 text-center p-4';
-                        errorMessage.textContent = 'Failed to load PDF. Please check the link or try downloading.';
-                        pdfViewer.parentNode.appendChild(errorMessage);
-                    };
-
-                } else {
-                    pdfLoadingSpinner.style.display = 'none';
-                    pdfViewer.style.display = 'none'; // Hide iframe if no PDF URL
-                    const noPdfMessage = document.createElement('p');
-                    noPdfMessage.className = 'text-gray-500 text-center p-4';
-                    noPdfMessage.textContent = 'No project report available for this project.';
-                    pdfViewer.parentNode.appendChild(noPdfMessage);
+            // Set initial opacity to 0 and observe elements that should animate on scroll
+            animatedElements.forEach(element => {
+                // Headers animate immediately on load, others observe on scroll.
+                if (!element.classList.contains('animate-header-fade-in')) {
+                    element.style.opacity = '0'; // Hide elements initially for scroll animation
+                    observer.observe(element);
                 }
-
-            } else {
-                document.getElementById('project-page-title').textContent = "Project Not Found";
-                document.querySelector('main').innerHTML = '<h1 class="text-4xl text-center text-red-600 mt-16">Project Not Found</h1><p class="text-center text-lg text-gray-700 mt-4">The project you are looking for does not exist.</p><div class="text-center mt-8"><a href="index.html" class="text-blue-600 hover:text-blue-800 font-semibold">Back to Portfolio</a></div>';
-            }
+            });
         });
     </script>
 </body>
