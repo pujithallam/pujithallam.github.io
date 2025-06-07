@@ -110,7 +110,7 @@
 
         /* Styles for horizontal project cards */
         .project-card-container {
-            display: flex; /* Ensure flex behavior */
+            display: flex; /* Enable flex behavior */
             overflow-x: auto; /* Enable horizontal scrolling */
             gap: 2.5rem; /* Tailwind gap-10 */
             padding: 1rem 0; /* Add padding for scrollbar/shadows */
@@ -125,11 +125,11 @@
             display: none; /* Hide scrollbar for Chrome, Safari, Opera */
         }
         .project-card {
-            min-width: 280px; /* Smaller width for 4-in-a-row on larger screens */
-            height: 280px; /* Maintain aspect ratio or desired height */
+            min-width: 400px; /* Reverted to larger width for cards */
+            height: 400px; /* Set a fixed height to make it more square/box-like */
             flex-shrink: 0; /* Prevent cards from shrinking */
             scroll-snap-align: start; /* Optional: for smooth snapping */
-            padding: 1.5rem; /* Adjusted padding */
+            padding: 2rem; /* Reverted padding */
             display: flex; /* Enable flex for content alignment */
             flex-direction: column; /* Stack content vertically */
             justify-content: space-between; /* Push button to bottom */
@@ -138,17 +138,37 @@
             border: 1px solid #1A1D33; /* Subtle border */
         }
         .project-card h3 {
-            font-size: 1.25rem; /* text-xl */
-            line-height: 1.4;
-            margin-bottom: 0.75rem;
+            font-size: 1.75rem; /* text-3xl */
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
         }
         .project-card p.text-gray-400 { /* date/short desc */
-            font-size: 0.875rem; /* text-sm */
-            margin-bottom: 0.75rem;
+            font-size: 1rem; /* text-base */
+            margin-bottom: 0.5rem;
         }
         .project-card p.text-gray-300 { /* main desc */
-            font-size: 1rem; /* text-base */
+            font-size: 1.125rem; /* text-lg */
             flex-grow: 1; /* Allow description to take available space */
+            overflow: hidden; /* Hide overflow text */
+            text-overflow: ellipsis; /* Add ellipsis for clipped text */
+            display: -webkit-box;
+            -webkit-line-clamp: 4; /* Limit to 4 lines for larger preview */
+            -webkit-box-orient: vertical;
+        }
+        .project-card a.text-sm {
+            font-size: 0.875rem; /* Reverted "Read More" text size */
+            line-height: 1.6;
+        }
+        .project-card .mt-4 { /* adjust spacing for button */
+            margin-top: 1rem; /* Reverted spacing */
+        }
+        .project-card .py-2 { /* adjust button padding */
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+        .project-card .px-6 { /* adjust button padding */
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
         }
 
 
@@ -185,20 +205,29 @@
         }
 
         /* Responsive adjustments for project cards */
-        @media (min-width: 1024px) { /* On large screens (lg) */
+        @media (min-width: 1280px) { /* On extra large screens (xl) */
             .project-card {
-                max-width: calc(25% - 2.5rem); /* Roughly 4 cards in a row with gap */
+                /* Allows 2-3 cards depending on screen size, given fixed width */
+                min-width: 400px;
+                max-width: 48%; /* Max 2 per row to ensure consistent size */
+            }
+        }
+        @media (max-width: 1279px) and (min-width: 1024px) { /* On large screens (lg) */
+            .project-card {
+                min-width: 380px; /* Slightly smaller for LG screens */
+                max-width: calc(50% - 1.25rem); /* Max 2 per row */
             }
         }
         @media (max-width: 1023px) and (min-width: 768px) { /* Medium screens (md) */
             .project-card {
-                max-width: calc(33.333% - 2.5rem); /* Roughly 3 cards in a row */
+                min-width: 350px; /* Smaller for MD screens */
+                max-width: calc(50% - 1.25rem); /* Max 2 per row */
             }
         }
         @media (max-width: 767px) { /* Small screens (sm) */
             .project-card {
-                min-width: 80%; /* Larger on small screens for better readability */
-                max-width: 80%;
+                min-width: 90%; /* Larger on small screens for better readability */
+                max-width: 90%;
             }
         }
 
@@ -326,9 +355,9 @@
                 <div id="project-carousel" class="flex overflow-x-auto gap-10 p-4 -mx-4 pb-8 project-card-container"> <!-- Added padding for scrollbar visibility -->
                     <!-- Project 1: Advanced CFD Simulation -->
                     <div class="bg-black p-6 rounded-xl shadow-sm border border-gray-800 flex flex-col hover:shadow-md card-hover transition duration-200 animated-element animate-scale-up-subtle project-card" style="animation-delay: 0.5s;">
-                        <h3 class="text-2xl font-bold text-white mb-3 leading-snug">Advanced CFD Simulation and Analysis of Complex Geometries</h3>
+                        <h3 class="text-2xl font-bold text-white mb-3 leading-snug">CFD Analysis of Complex Geometries</h3>
                         <p class="text-base text-gray-400 mb-5">November 2024</p>
-                        <p class="text-base text-gray-300 flex-grow">Designed and modeled geometries in SolidWorks for CFD simulations in ANSYS Fluent...
+                        <p class="text-base text-gray-300 flex-grow">Simulated thermal convection and multiphase flows in ANSYS Fluent using SolidWorks models; enhanced design with 41% lift improvement.
                             <a href="./project1.html" class="inline-block text-accent-gradient hover:text-accent-dark hover:underline text-sm">Read More</a>
                         </p>
                         <div class="mt-4 text-right">
@@ -342,7 +371,7 @@
                     <div class="bg-black p-6 rounded-xl shadow-sm border border-gray-800 flex flex-col hover:shadow-md card-hover transition duration-200 animated-element animate-scale-up-subtle project-card" style="animation-delay: 0.7s;">
                         <h3 class="text-2xl font-bold text-white mb-3 leading-snug">Design and Development of Tensile Testing Machine</h3>
                         <p class="text-base text-gray-400 mb-5">May 2025</p>
-                        <p class="text-base text-gray-300 flex-grow">Led the design and mechanical integration of a low-cost tensile testing system...
+                        <p class="text-base text-gray-300 flex-grow">Led the design and mechanical integration of a low-cost tensile testing system using Arduino, load cell, stepper motor, and HX711 amplifier...
                             <a href="./project2.html" class="inline-block text-accent-gradient hover:text-accent-dark hover:underline text-sm">Read More</a>
                         </p>
                         <div class="mt-4 text-right">
